@@ -25,7 +25,6 @@ function tellMe(joke) {
 
 
 // Get jokes from JOKEAPI
-
 async function getJokes() {
     let joke = '';
     try {
