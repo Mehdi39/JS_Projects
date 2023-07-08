@@ -122,6 +122,27 @@ const VoiceRSS = {
 
 // test();
 
+// disable/enable button
+function toggleButton() {
+    button.disabled = !button.disabled;
+}
+
+// Passing joke to voiceRSS api
+function tellMe(joke) {
+    console.log('tell me: ', joke);
+    VoiceRSS.speech({
+        key: '9ed028f353744f98be606ad16cfc394f',
+        src: joke,
+        hl: 'en-us',
+        v: 'Linda',
+        r: 0,
+        c: 'mp3',
+        f: '44khz_16bit_stereo',
+        ssml: false
+    });
+}
+
+
 // Get jokes from JOKEAPI
 
 async function getJokes() {
@@ -135,10 +156,14 @@ async function getJokes() {
         } else {
             joke = responses.joke;
         }
-        console.log(joke)
+        // text-to-speech
+        tellMe(joke);
+        //disable button
+        toggleButton();
     } catch (error) {
         console.log(error.message)
     }
 }
 
-getJokes();
+button.addEventListener('click', getJokes)
+audioElement.addEventListener('ended', toggleButton);
